@@ -1,9 +1,15 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { site } from "@/data/site";
 
-export const alt = `${site.name} — ${site.tagline}`;
+export const alt = `${site.name} — ${site.fullName}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+
+// Read once at module scope so the image stays prerendered at build time.
+const logoData = await readFile(join(process.cwd(), "public", site.logo.src), "base64");
+const logoSrc = `data:image/jpeg;base64,${logoData}`;
 
 export default function OpengraphImage() {
   return new ImageResponse(
@@ -29,40 +35,26 @@ export default function OpengraphImage() {
 
         <div
           style={{
-            width: 168,
-            height: 168,
+            width: 252,
+            height: 252,
             borderRadius: 999,
+            padding: 5,
             display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
             background: "linear-gradient(135deg, #FFFFFF, #C3C8D0 55%, #F4F5F7)",
-            boxShadow: "0 24px 48px -18px rgba(11,21,48,0.5)",
+            boxShadow: "0 24px 48px -18px rgba(11,21,48,0.55)",
           }}
         >
-          <div
-            style={{
-              width: 136,
-              height: 136,
-              borderRadius: 999,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              background: "linear-gradient(145deg, #1F2F5E, #0B1530)",
-              color: "#FFFFFF",
-              fontSize: 56,
-              fontWeight: 800,
-              letterSpacing: -2,
-            }}
-          >
-            VD
-          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element -- ImageResponse renders plain <img> */}
+          <img src={logoSrc} width={242} height={242} alt="" style={{ borderRadius: 999 }} />
         </div>
 
-        <div style={{ marginTop: 44, fontSize: 92, fontWeight: 800, letterSpacing: -3 }}>VIZU</div>
-        <div style={{ marginTop: 4, fontSize: 30, fontWeight: 600, letterSpacing: 18, color: "#14214A" }}>
-          DEUTSCH
+        <div style={{ marginTop: 40, fontSize: 30, letterSpacing: 2, color: "#4A5468" }}>{site.fullName}</div>
+        <div style={{ marginTop: 26, display: "flex", gap: 6 }}>
+          <div style={{ width: 36, height: 3, background: "#121212" }} />
+          <div style={{ width: 36, height: 3, background: "#DD0000" }} />
+          <div style={{ width: 36, height: 3, background: "#FFCE00" }} />
         </div>
-        <div style={{ marginTop: 36, fontSize: 34, color: "#4A5468" }}>{site.tagline}</div>
+        <div style={{ marginTop: 26, fontSize: 40, color: "#0B1530" }}>{site.ogTagline}</div>
       </div>
     ),
     size,

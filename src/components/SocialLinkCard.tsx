@@ -4,6 +4,7 @@ import { useRef, useState, type PointerEvent } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import type { HubLink } from "@/data/links";
+import { useLanguage } from "@/i18n/LanguageProvider";
 import { cn } from "@/lib/cn";
 import { EASE_OUT } from "@/lib/motion";
 
@@ -17,6 +18,8 @@ interface SocialLinkCardProps {
 
 export function SocialLinkCard({ link, index, delay }: SocialLinkCardProps) {
   const reduceMotion = useReducedMotion();
+  const { t } = useLanguage();
+  const text = t.links.items[link.id];
   const [ripples, setRipples] = useState<Ripple[]>([]);
   const nextRippleId = useRef(0);
   const Icon = link.icon;
@@ -44,7 +47,7 @@ export function SocialLinkCard({ link, index, delay }: SocialLinkCardProps) {
         href={link.url}
         {...(link.external && { target: "_blank", rel: "noopener noreferrer" })}
         onPointerDown={spawnRipple}
-        whileHover={{ y: -3 }}
+        whileHover={{ y: -2, scale: 1.01 }}
         whileTap={{ scale: 0.97 }}
         transition={{ type: "spring", stiffness: 420, damping: 30 }}
         className={cn(
@@ -117,8 +120,8 @@ export function SocialLinkCard({ link, index, delay }: SocialLinkCardProps) {
         </span>
 
         <span className="min-w-0 flex-1">
-          <span lang={link.lang} className="block text-[15px] leading-snug font-semibold tracking-tight text-pretty sm:text-base">
-            {link.title}
+          <span className="block text-[15px] leading-snug font-semibold tracking-tight text-pretty sm:text-base">
+            {text.title}
           </span>
           <span
             className={cn(
@@ -126,7 +129,7 @@ export function SocialLinkCard({ link, index, delay }: SocialLinkCardProps) {
               featured ? "text-white/70" : "text-slate-ink",
             )}
           >
-            {link.description}
+            {text.description}
           </span>
         </span>
 
@@ -134,11 +137,11 @@ export function SocialLinkCard({ link, index, delay }: SocialLinkCardProps) {
           aria-hidden
           strokeWidth={2}
           className={cn(
-            "size-[18px] shrink-0 transition-transform duration-300 ease-out group-hover:translate-x-1 group-hover:-translate-y-0.5 group-active:translate-x-1.5",
+            "size-[18px] shrink-0 transition-transform duration-300 ease-out group-hover:translate-x-1 group-active:translate-x-1.5",
             featured ? "text-de-gold" : "text-navy-900/60",
           )}
         />
-        {link.external && <span className="sr-only"> (öffnet in neuem Tab)</span>}
+        {link.external && <span className="sr-only"> {t.links.opensInNewTab}</span>}
       </motion.a>
     </motion.li>
   );

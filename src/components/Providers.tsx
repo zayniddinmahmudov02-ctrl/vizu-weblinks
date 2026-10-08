@@ -2,8 +2,13 @@
 
 import { MotionConfig } from "framer-motion";
 import type { ReactNode } from "react";
+import { LanguageProvider } from "@/i18n/LanguageProvider";
 
-/** Honors the OS "reduce motion" setting for every Framer Motion animation. */
+/** App-wide client context: active language, and the OS "reduce motion" setting for Framer Motion. */
 export function Providers({ children }: { children: ReactNode }) {
-  return <MotionConfig reducedMotion="user">{children}</MotionConfig>;
+  return (
+    <LanguageProvider>
+      <MotionConfig reducedMotion="user">{children}</MotionConfig>
+    </LanguageProvider>
+  );
 }

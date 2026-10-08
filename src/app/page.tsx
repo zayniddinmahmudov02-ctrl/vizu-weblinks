@@ -1,28 +1,26 @@
-import { AboutTeacher } from "@/components/AboutTeacher";
-import { Background } from "@/components/Background";
 import { Footer } from "@/components/Footer";
+import { GermanyBackground } from "@/components/GermanyBackground";
 import { Hero } from "@/components/Hero";
+import { LevelStaircase } from "@/components/LevelStaircase";
 import { ProfileCard } from "@/components/ProfileCard";
 import { SocialLinks } from "@/components/SocialLinks";
+import { TeacherSection } from "@/components/TeacherSection";
 
 export default function Home() {
   return (
     <>
-      <a
-        href="#links"
-        className="sr-only z-50 rounded-full bg-navy-900 px-4 py-2 text-sm font-semibold text-white focus:not-sr-only focus:fixed focus:top-4 focus:left-4"
-      >
-        Zu den Links springen
-      </a>
+      <GermanyBackground />
 
-      <Background />
-
-      <div className="mx-auto flex w-full max-w-[480px] flex-col gap-8 px-4 pt-8 pb-6 sm:max-w-[500px] sm:px-6 sm:pt-12 lg:pt-16">
+      <div className="mx-auto flex w-full max-w-[480px] flex-col gap-8 px-4 pt-6 pb-6 sm:max-w-[500px] sm:px-6 sm:pt-10 lg:pt-14">
         <Hero />
         <main className="flex flex-col gap-8">
           <ProfileCard />
           <SocialLinks />
-          <AboutTeacher />
+          {/* In the flow on phones/tablets; pinned bottom-left on wide screens. */}
+          <div className="flex h-[132px] justify-center xl:fixed xl:bottom-10 xl:left-10 xl:h-auto">
+            <LevelStaircase className="origin-top scale-[0.8] xl:scale-100" />
+          </div>
+          <TeacherSection />
         </main>
         <Footer />
       </div>

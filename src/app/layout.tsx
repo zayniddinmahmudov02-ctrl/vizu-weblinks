@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { Providers } from "@/components/Providers";
 import { site, siteUrl, teacher } from "@/data/site";
+import { defaultLocale } from "@/i18n/config";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -32,7 +33,8 @@ export const metadata: Metadata = {
     siteName: site.name,
     title: site.title,
     description: site.description,
-    locale: "de_DE",
+    locale: "uz_UZ",
+    alternateLocale: ["de_DE", "en_US"],
   },
   twitter: {
     card: "summary_large_image",
@@ -49,7 +51,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="de" className={`${jakarta.variable} antialiased`}>
+    <html lang={defaultLocale} className={`${jakarta.variable} antialiased`}>
       <body className="min-h-dvh font-sans">
         <Providers>{children}</Providers>
       </body>
