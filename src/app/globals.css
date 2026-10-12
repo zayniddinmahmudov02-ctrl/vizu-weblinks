@@ -30,6 +30,10 @@
   --animate-flag-shade: flag-shade 7s ease-in-out infinite;
   --animate-skyline: skyline 70s ease-in-out infinite alternate;
   --animate-float-slow: float 20s ease-in-out infinite;
+  --animate-vinyl: spin 2.6s linear infinite;
+
+  --color-accent-blue: #2f5fd0;
+  --color-accent-blue-light: #7ea2ff;
 
   @keyframes flag-wave {
     0%,
@@ -186,6 +190,27 @@ body {
 
 @utility noise {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.04 0 0 0 0 0.08 0 0 0 0 0.19 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Record grooves plus an off-centre sheen so the rotation is actually visible. */
+@utility vinyl {
+  background:
+    conic-gradient(
+      from 0deg,
+      rgb(255 255 255 / 0.1),
+      transparent 14%,
+      transparent 48%,
+      rgb(126 162 255 / 0.28) 56%,
+      transparent 68%
+    ),
+    repeating-radial-gradient(
+      circle,
+      var(--color-navy-950) 0 1.4px,
+      #16214a 1.4px 2.8px
+    );
+  box-shadow:
+    inset 0 0 0 1px rgb(255 255 255 / 0.12),
+    inset 0 0 0 3px var(--color-navy-950);
 }
 
 @utility glyph-outline {

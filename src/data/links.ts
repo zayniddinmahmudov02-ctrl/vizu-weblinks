@@ -1,6 +1,6 @@
 import type { ComponentType } from "react";
 import { Bot, Globe } from "lucide-react";
-import { TelegramIcon, YouTubeIcon } from "@/components/icons/BrandIcons";
+import { InstagramIcon, TelegramIcon, YouTubeIcon } from "@/components/icons/BrandIcons";
 
 export type IconComponent = ComponentType<{
   className?: string;
@@ -8,7 +8,7 @@ export type IconComponent = ComponentType<{
   strokeWidth?: number;
 }>;
 
-export type LinkId = "website" | "telegram" | "youtube" | "bot";
+export type LinkId = "website" | "telegram" | "youtube" | "instagram" | "bot";
 
 /** Titles and descriptions are localized in src/i18n/translations.ts, keyed by `id`. */
 export interface HubLink {
@@ -41,6 +41,12 @@ export const links: readonly HubLink[] = [
     external: true,
   },
   {
+    id: "instagram",
+    url: "https://www.instagram.com/vizu_deutsch",
+    icon: InstagramIcon,
+    external: true,
+  },
+  {
     id: "bot",
     url: "https://t.me/vizu_academy_bot",
     icon: Bot,
@@ -55,7 +61,7 @@ export function getLink(id: LinkId): HubLink {
 }
 
 export const footerLinks: readonly HubLink[] = (
-  ["telegram", "youtube", "website"] as const
+  ["telegram", "instagram", "youtube", "website"] as const
 ).map(getLink);
 
 export const teacherProfileUrl = "https://zayniddinkhuja-makhmudov-cv.vercel.app/";

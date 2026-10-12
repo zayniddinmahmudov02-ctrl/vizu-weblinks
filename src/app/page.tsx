@@ -2,16 +2,20 @@ import { Footer } from "@/components/Footer";
 import { GermanyBackground } from "@/components/GermanyBackground";
 import { Hero } from "@/components/Hero";
 import { LevelStaircase } from "@/components/LevelStaircase";
+import { MusicPlayer } from "@/components/MusicPlayer";
 import { ProfileCard } from "@/components/ProfileCard";
 import { SocialLinks } from "@/components/SocialLinks";
 import { TeacherSection } from "@/components/TeacherSection";
+import { resolveTrackSource } from "@/lib/track-source";
+
+const trackSource = resolveTrackSource();
 
 export default function Home() {
   return (
     <>
       <GermanyBackground />
 
-      <div className="mx-auto flex w-full max-w-[480px] flex-col gap-8 px-4 pt-6 pb-6 sm:max-w-[500px] sm:px-6 sm:pt-10 lg:pt-14">
+      <div className="mx-auto flex w-full max-w-[480px] flex-col gap-8 px-4 pt-6 pb-24 sm:max-w-[500px] sm:pb-10 sm:px-6 sm:pt-10 lg:pt-14">
         <Hero />
         <main className="flex flex-col gap-8">
           <ProfileCard />
@@ -24,6 +28,8 @@ export default function Home() {
         </main>
         <Footer />
       </div>
+
+      <MusicPlayer source={trackSource} />
     </>
   );
 }
